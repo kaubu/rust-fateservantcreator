@@ -1,4 +1,4 @@
-const APP_VERSION: &str = "0.1.0";
+const APP_VERSION: &str = "0.1.1";
 
 fn main() {
 	println!("[ Fate/Servant Creator ver. {} ]
