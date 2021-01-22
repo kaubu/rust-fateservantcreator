@@ -71,7 +71,15 @@ pub fn init_menu() {
 				print_servant_stats(servant);
 			},
 			3 => { // Delete an existing servant
-				println!("{}", delete_servant());
+				let file_name = input("Servant file name: ");
+				let file_path = format!("./{}/{}.{}", SERVANT_FOLDER, file_name, SERVANT_EXTENSION);
+
+				match delete_servant(file_path) {
+					Err(error) => {
+						panic!("Error deleting servant: {:?}", error);
+					},
+					_ => println!("Servant deleted successfully.")
+				}
 			},
 			4 => { // List all existing servants
 				get_servants();
@@ -144,8 +152,9 @@ fn load_servant(file_name: String) -> Servant {
 	servant
 }
 
-fn delete_servant() -> u32 {
-	3// Code
+fn delete_servant(file_path: String) -> io::Result<()> {
+	fs::remove_file(file_path).unwrap();
+	Ok(())
 }
 
 fn get_servants() { // List all .svt files.
